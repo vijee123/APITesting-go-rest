@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "e5c5ffad-fbbe-4b69-bf11-38fe80d44be6",
+		"name": "VJ_Collec_Chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29490019"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.environment.set(\"user_id\",jsonData.id);\r",
+							"\r",
+							"console.log(\"The new user id created is \"+ pm.environment.get(\"user_id\"));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random = Math.random().toString(26).substring(2);\r",
+							"\r",
+							"var user_name = \"viji\"+random;\r",
+							"var email_id = \"viji\"+random+\"@gmail.com\";\r",
+							"\r",
+							"pm.environment.set(\"user_name\",user_name);\r",
+							"pm.environment.set(\"email_id\",email_id);\r",
+							"\r",
+							"console.log(\"User name created is \"+ user_name);\r",
+							"\r",
+							"console.log(\"The e-mail id of user is \"+ email_id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\"name\":\"{{user_name}}\",\r\n \"gender\":\"Female\",\r\n \"email\":\"{{email_id}}\", \r\n \"status\":\"active\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Verify the Inserted fields\",() =>\r",
+							"        {\r",
+							"                 var jsonData = pm.response.json();\r",
+							"                  pm.expect(jsonData.id).to.eql(pm.environment.get(\"user_id\"));\r",
+							"                  pm.expect(jsonData.name).to.eql(pm.environment.get(\"user_name\"));\r",
+							"        }\r",
+							"        );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random = Math.random().toString(26).substring(2);\r",
+							"\r",
+							"var user_name = \"viji\"+random;\r",
+							"var email_id = \"viji\"+random+\"@gmail.com\";\r",
+							"\r",
+							"//pm.environment.set(\"user_name\",user_name);\r",
+							"//pm.environment.set(\"email_id\",email_id);\r",
+							"\r",
+							"//console.log(\"User name created is \"+ user_name);\r",
+							"\r",
+							"//console.log(\"The e-mail id of user is \"+ email_id);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\"name\":\"{{user_name}}\",\r\n \"gender\":\"Female\",\r\n \"email\":\"{{email_id}}\", \r\n \"status\":\"active\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var NewData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Verify the Updated fields\",() =>\r",
+							"        {\r",
+							"              // var jsonData = pm.response.json();\r",
+							"                  pm.expect(NewData.id).to.eql(pm.environment.get(\"user_id\"));\r",
+							"                  pm.expect(NewData.name).to.eql(pm.environment.get(\"user_name\"));\r",
+							"        }\r",
+							"        );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "68ea3fe78359fed7b83e304be2f44c398b7dfdb7ee3a5581989b4f49ae86542a",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
